@@ -7,6 +7,7 @@ float lx = width/2;
 float ly = height/2;
 float leaderSpeed = 1; //the speed at which the leader bacteria moves
 boolean toggleLeader = false; //toggles the leader function
+boolean cure = false;
 
 void setup() {
   size(800, 600);
@@ -30,6 +31,8 @@ void draw() {
     } else if (interact == 3) {
       toggleLeader = false;
       bacteria[i].disperse(mouseX, mouseY);
+    } else if (interact == 4) {
+      bacteria[i].show();
     } else {
       toggleLeader = false;
     }
@@ -39,14 +42,17 @@ void draw() {
 }
 
 void keyPressed() {
-  if (key == 'd') {
-    interact = 3;
+  if (key == 'c') {
+    interact = 4;
+    cure = !cure; //cure the bacteria
+  } else if (key == 'd') {
+    interact = 3; //disperse
   } else if (key == 'f') {
-    interact = 2;
+    interact = 2; //follow leader circle
   } else if (key == 'm') {
-    interact = 1;
+    interact = 1; //follow mouse
   } else {
-    interact = 0;
+    interact = 0; //do nothing
   }
 }
 
@@ -74,9 +80,9 @@ void leader(int mX, int mY) {
 class Bacteria {
   float x_pos;
   float y_pos;
-  float c1 = random(0, 250); //random colors
-  float c2 = random(0, 250);
-  float c3 = random(0, 250);
+  float c1; //varying shades of green
+  float c2;
+  float c3;
   float speed = random(0, 1);
   float size = random(6, 10);
 
@@ -86,6 +92,15 @@ class Bacteria {
   }
 
   void show() {
+    if (!cure) {
+      c1 = 54 + random(-30, 30); //varying shades of green
+      c2 = 200 + random(-30, 30);
+      c3 = 30 + random(-30, 30);
+    } else {
+      c1 = 30 + random(-30, 30);
+      c2 = 120 + random(-30, 30);
+      c3 = 200 + random(-30, 30);
+    }
     fill(c1, c2, c3);
     ellipse(x_pos, y_pos, size, size);
   }
