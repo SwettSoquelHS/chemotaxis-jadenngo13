@@ -8,6 +8,8 @@ float ly = height/2;
 float leaderSpeed = 1; //the speed at which the leader bacteria moves
 boolean toggleLeader = false; //toggles the leader function
 boolean cure = false;
+int size = 0; //used for ripple function
+int radius = size/2;
 
 void setup() {
   size(800, 600);
@@ -18,6 +20,7 @@ void setup() {
 }
 
 void draw() {
+  e();
   background(0);
   for (int i = 0; i<bacteria.length; i++) {
     bacteria[i].show();
@@ -43,6 +46,7 @@ void draw() {
 
 void keyPressed() {
   if (key == 'c') {
+    size = 0;
     interact = 4;
     cure = !cure; //cure the bacteria
   } else if (key == 'd') {
@@ -77,6 +81,17 @@ void leader(int mX, int mY) {
   ellipse(lx, ly, 20, 20);
 }
 
+void e() {
+  fill(200);
+  ellipse(width/2, height/2, size, size);
+  if (size > width+100) {
+    size = 10;
+  } else {
+    size+=5;
+    radius = size/2;
+  }
+}
+
 class Bacteria {
   float x_pos;
   float y_pos;
@@ -92,14 +107,14 @@ class Bacteria {
   }
 
   void show() {
-    if (!cure) {
-      c1 = 54 + random(-30, 30); //varying shades of green
-      c2 = 200 + random(-30, 30);
-      c3 = 30 + random(-30, 30);
-    } else {
+    if (cure && dist(x_pos, y_pos, width/2, height/2) < radius) {
       c1 = 30 + random(-30, 30);
       c2 = 120 + random(-30, 30);
       c3 = 200 + random(-30, 30);
+    } else {
+      c1 = 54 + random(-30, 30); //varying shades of green
+      c2 = 200 + random(-30, 30);
+      c3 = 30 + random(-30, 30);
     }
     fill(c1, c2, c3);
     ellipse(x_pos, y_pos, size, size);
