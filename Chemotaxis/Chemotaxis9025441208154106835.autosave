@@ -7,14 +7,6 @@ float lx = width/2;
 float ly = height/2;
 float leaderSpeed = 1; //the speed at which the leader bacteria moves
 boolean toggleLeader = false; //toggles the leader function
-boolean cure = false;
-int size = 0; //used for ripple function
-int radius = size/2;
-float eX;
-float eY;
-boolean infect;
-float squeeze = .4;
-float cureWidth = 25;
 
 void setup() {
   size(800, 600);
@@ -25,7 +17,6 @@ void setup() {
 }
 
 void draw() {
-  e(mouseX, mouseY);
   background(0);
   for (int i = 0; i<bacteria.length; i++) {
     bacteria[i].show();
@@ -39,36 +30,23 @@ void draw() {
     } else if (interact == 3) {
       toggleLeader = false;
       bacteria[i].disperse(mouseX, mouseY);
-    } else if (interact == 4) {
-      bacteria[i].show();
     } else {
       toggleLeader = false;
     }
   }
-  if (toggleLeader){
+  if (toggleLeader)
     leader(mouseX, mouseY);
-  }
-  if(cure){
-    syringe(mouseX, mouseY);
-  }
 }
 
 void keyPressed() {
-  if ( key == 'i') {
-    infect = true;
-  } else if (key == 'c') {
-    size = 0;
-    interact = 4;
-    infect = false;
-    cure = !cure; //cure the bacteria
-  } else if (key == 'd') {
-    interact = 3; //disperse
+  if (key == 'd') {
+    interact = 3;
   } else if (key == 'f') {
-    interact = 2; //follow leader circle
+    interact = 2;
   } else if (key == 'm') {
-    interact = 1; //follow mouse
+    interact = 1;
   } else {
-    interact = 0; //do nothing
+    interact = 0;
   }
 }
 
@@ -89,50 +67,18 @@ void leader(int mX, int mY) {
   } else if (ly < mY) {
     ly = ly + leaderSpeed;
   }
-  fill(30, 120, 200); //blue
+  fill(#FA0000); //red
   ellipse(lx, ly, 20, 20);
-}
-
-void e(float mX, float mY) {
-  fill(200);
-  ellipse(mX, mY, size, size);
-  eX = mX-30;
-  eY = mY+30;
-  if (size > width+200) {
-    size = width+200;
-  } else {
-    size+=5;
-    radius = size/2;
-  }
-}
-
-void syringe(int x, int y) {
-  pushMatrix();
-  beginShape();
-  translate(x, y);
-  fill(#0A6FF0);
-  quad(-40, 40, -40, 30, 0, -10, 0, 0);
-  rotate(-15); 
-  cureWidth += squeeze;
-  ellipse(5, 30, cureWidth, 70);
-  if (cureWidth > 40) {
-    squeeze *= -1;
-  } else if (cureWidth < 15){
-    squeeze *= -1;
-  }
-  endShape();
-  popMatrix();
 }
 
 class Bacteria {
   float x_pos;
   float y_pos;
-  float c1; //varying shades of green
-  float c2;
-  float c3;
+  float c1 = random(0, 250); //random colors
+  float c2 = random(0, 250);
+  float c3 = random(0, 250);
   float speed = random(0, 1);
   float size = random(6, 10);
-  boolean cured = false;
 
   Bacteria() {
     x_pos = random(0, width);
@@ -140,24 +86,6 @@ class Bacteria {
   }
 
   void show() {
-    if (cure && dist(x_pos, y_pos, eX, eY)<50) {
-      cured = true;
-    }
-    if (cured) {
-      c1 = 30 + random(-30, 30);
-      c2 = 120 + random(-30, 30);
-      c3 = 200 + random(-30, 30);
-    } else {
-      c1 = 54 + random(-30, 30); //varying shades of green
-      c2 = 200 + random(-30, 30);
-      c3 = 30 + random(-30, 30);
-    }
-    if (infect) {
-      c1 = 54 + random(-30, 30); //varying shades of green
-      c2 = 200 + random(-30, 30);
-      c3 = 30 + random(-30, 30);
-      cured = false;
-    } 
     fill(c1, c2, c3);
     ellipse(x_pos, y_pos, size, size);
   }
@@ -193,7 +121,7 @@ class Bacteria {
     }
   }
 
-  void popped(int mX, int mY) { //FUNCTION NOT USED OR WORKING
+  void popped(int mX, int mY) {
     if (dist(x_pos, y_pos, mX, mY) < size) {
       System.out.println("You clicked the bacteria!");
       System.out.println("this.x_pos = " + this.x_pos);
