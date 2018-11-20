@@ -196,12 +196,9 @@ class Bacteria {
 
   void popped(int mX, int mY) { //FUNCTION NOT USED OR WORKING
     if (dist(x_pos, y_pos, mX, mY) < size) {
-      System.out.println("You clicked the bacteria!");
-      System.out.println("this.x_pos = " + this.x_pos);
       i+=4;
       Bacteria[] bacteria = new Bacteria[i];
       for (int i = 0; i<bacteria.length; i++) {
-        //    System.out.println("bacteria[i].x_pos = " + bacteria[i].x_pos + " this.x_pos = " + this.x_pos);
         bacteria[i] = new Bacteria();
         bacteria[i].x_pos = this.x_pos;
       }
