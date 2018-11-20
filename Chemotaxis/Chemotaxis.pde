@@ -34,7 +34,7 @@ void draw() {
       bacteria[i].follow(mouseX, mouseY);
     } else if (interact == 2) {
       toggleLeader = true;
-      //bacteria[i].followLeader();
+      bacteria[i].followLeader();
     } else if (interact == 3) {
       toggleLeader = false;
       bacteria[i].disperse(mouseX, mouseY);
