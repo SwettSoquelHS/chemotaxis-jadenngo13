@@ -114,6 +114,7 @@ void syringe(int x, int y) {
   quad(-40, 40, -40, 30, 0, -10, 0, 0);
   rotate(-15); 
   cureWidth += squeeze;
+  fill(200);
   ellipse(5, 30, cureWidth, 70);
   if (cureWidth > 40) {
     squeeze *= -1;
