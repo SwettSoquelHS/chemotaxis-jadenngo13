@@ -72,11 +72,11 @@ void keyPressed() {
   }
 }
 
-void mousePressed() {
+/*void mousePressed() {
   for (int i = 0; i<bacteria.length; i++) {
     bacteria[i].popped(mouseX, mouseY);
   }
-}
+} */
 
 void leader(int mX, int mY) {
   if (lx >= mX) {
