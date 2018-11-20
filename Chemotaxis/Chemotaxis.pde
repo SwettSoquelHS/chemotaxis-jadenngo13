@@ -1,7 +1,6 @@
 int i = 1000;
 Bacteria[] bacteria = new Bacteria[i];
 int interact = 0;
-boolean leader = false;
 int total = 10;
 float lx = width/2;
 float ly = height/2;
@@ -45,9 +44,9 @@ void draw() {
       toggleLeader = false;
     }
   }
-  /*if (toggleLeader){
+  if (toggleLeader){
     leader(mouseX, mouseY);
-  } */
+  }
   if(cure){
     syringe(mouseX, mouseY);
   }
