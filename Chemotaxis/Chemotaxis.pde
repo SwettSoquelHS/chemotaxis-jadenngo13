@@ -7,8 +7,8 @@ float ly = height/2;
 float leaderSpeed = 1; //the speed at which the leader bacteria moves
 boolean toggleLeader = false; //toggles the leader function
 boolean cure = false;
-int size = 0; //used for ripple function
-int radius = size/2;
+int rsize = 0; //used for ripple function
+int radius = rsize/2;
 float eX;
 float eY;
 boolean infect;
@@ -56,7 +56,7 @@ void keyPressed() {
   if ( key == 'i') {
     infect = true;
   } else if (key == 'c') {
-    size = 0;
+    rsize = 0;
     interact = 4;
     infect = false;
     cure = !cure; //cure the bacteria
@@ -94,14 +94,14 @@ void leader(int mX, int mY) {
 
 void e(float mX, float mY) {
   fill(200);
-  ellipse(mX, mY, size, size);
+  ellipse(mX, mY, rsize, rsize);
   eX = mX-30;
   eY = mY+30;
-  if (size > width+200) {
-    size = width+200;
+  if (rsize > width+200) {
+    rsize = width+200;
   } else {
-    size+=5;
-    radius = size/2;
+    rsize+=5;
+    radius = rsize/2;
   }
 }
 
