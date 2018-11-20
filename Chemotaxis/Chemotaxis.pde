@@ -194,7 +194,7 @@ class Bacteria {
     }
   }
 
-  void popped(int mX, int mY) { //FUNCTION NOT USED OR WORKING
+/*  void popped(int mX, int mY) { //FUNCTION NOT USED OR WORKING
     if (dist(x_pos, y_pos, mX, mY) < size) {
       i+=4;
       Bacteria[] bacteria = new Bacteria[i];
@@ -203,7 +203,7 @@ class Bacteria {
         bacteria[i].x_pos = this.x_pos;
       }
     }
-  }
+  } */
 
   void disperse(float mX, float mY) {
     if (dist(mX, mY, x_pos, y_pos) < 100) {
